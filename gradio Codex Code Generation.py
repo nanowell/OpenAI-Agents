@@ -1,4 +1,5 @@
 import gradio as gr
+from gradio.inputs import Dropdown
 import requests
 
 """
@@ -8,8 +9,8 @@ Use api.openai.com to get the response.
 """
 
 
-def generate_text(input_text, api_key, temperature, max_tokens, frequency_penalty, presence_penalty):
-    url = "https://api.openai.com/v1/engines/davinci-codex/completions"
+def generate_text(input_text, api_key, temperature, max_tokens, frequency_penalty, presence_penalty, engine_id):
+    url = "https://api.openai.com/v1/engines/{engine_id}/completions".format(engine_id=engine_id)
     data = {
         "prompt": input_text,
         "max_tokens": max_tokens,
@@ -29,6 +30,6 @@ if __name__ == "__main__":
     gr.Interface(
         generate_text,  # function to be called
         [gr.inputs.Textbox(lines=1), gr.inputs.Textbox(lines=1), gr.inputs.Slider(minimum=0, maximum=1, step=0.01),
-         gr.inputs.Slider(minimum=32, maximum=500, step=1), gr.inputs.Slider(minimum=0, maximum=1, step=0.01), gr.inputs.Slider(minimum=0, maximum=1, step=0.01)],  # input types
+         gr.inputs.Slider(minimum=32, maximum=500, step=1), gr.inputs.Slider(minimum=0, maximum=1, step=0.01), gr.inputs.Slider(minimum=0, maximum=1, step=0.01), gr.inputs.Dropdown(["davinci-codex", "cushman-codex"])],  # input types
         gr.outputs.Textbox()  # output type
     ).launch()
