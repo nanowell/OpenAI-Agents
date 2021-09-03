@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OpenAI Codex generating HTML</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .card {
+            margin: 10px;
+        }
+        .card-header {
+            background-color: #f5f5f5;
+        }
+        .card-body {
+            background-color: #f5f5f5;
+        }
+        .card-footer {
+            background-color: #f5f5f5;
+        }
+        .card-title {
+            font-size: 1.5em;
+        }
+        .card-text {
+            font-size: 1.1em;
+        }
+        .card-link {
+            font-size: 1.1em;
+        }
+        .card-link:hover {
+            text-decoration: none;
+        }
+        .card-link:visited {
+            color: #000000;
+        }
+        .card-link:active {
+            color: #000000;
+        }
+        .card-link:focus {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-4">OpenAI Codex</h1>
+                <p class="lead">A collection of the best articles on Artificial Intelligence, Machine Learning, Deep Learning and Reinforcement Learning.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Articles</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                            include './articles.php';
+                        ?>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="https://openai.com/blog/" target="_blank" class="card-link">View All Articles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Videos</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                            include './videos.php';
+                        ?>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="https://www.youtube.com/channel/UCrB-uourf2vxCd7WZwXl_9w" target="_blank" class="card-link">View All Videos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Podcasts</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                            include './podcasts.php';
+                        ?>
+                    </div>
+                                        <div class="card-footer text-muted">
+                        <a href="https://openai.com/blog/" target="_blank" class="card-link">View All Podcasts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Webinars</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                            include './webinars.php';
+                        ?>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="https://openai.com/blog/" target="_blank" class="card-link">View All Webinars</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
