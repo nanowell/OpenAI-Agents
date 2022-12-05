@@ -69,4 +69,3 @@ def main():
             download_image(url, url.split("/")[-1])
     else:
         download_images(board)
-
