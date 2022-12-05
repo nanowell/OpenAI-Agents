@@ -39,12 +39,23 @@ def download_image(url, filename):
     print ("Downloading {} to {}".format(url, filename))
     urllib.request.urlretrieve(url, filename)
 
+def download_image_in_thread(url, filename):
+    def download():
+        download_image(url, filename)
+    thread = threading.Thread(target=download)
+    thread.start()
+
 def download_images(board):
     thread_ids = get_thread_ids(board)
+    threads = []
     for thread_id in thread_ids:
         image_urls = get_image_urls(thread_id)
         for url in image_urls:
-            download_image(url, url.split("/")[-1])
+            thread = threading.Thread(target=download_image, args=(url, url.split("/")[-1]))
+            threads.append(thread)
+            thread.start()
+    for thread in threads:
+        thread.join()
 
 def main():
     if len(sys.argv) < 2:
@@ -59,5 +70,3 @@ def main():
     else:
         download_images(board)
 
-if __name__ == "__main__":
-    main()
