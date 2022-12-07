@@ -1,4 +1,3 @@
-Optimize this code:
 # Check if used with Python 3
 import sys
 if sys.version_info[0] < 3:
