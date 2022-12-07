@@ -1,7 +1,3 @@
-"""
-Python disassembler
-"""
-
 import sys
 import os
 import imp
@@ -201,7 +197,7 @@ def disassemble_string(code, lasti=-1, varnames=None, names=None,
     while i < n:
         have_inner = False
         c = code[i]
-        op = code[i]
+        op = ord(c)
         if i == lasti: print('-->', end=' ')
         else: print('   ', end=' ')
         if i in labels: print('>>', end=' ')
@@ -210,7 +206,7 @@ def disassemble_string(code, lasti=-1, varnames=None, names=None,
         print(opname[op].ljust(15), end=' ')
         i = i + 1
         if op >= HAVE_ARGUMENT:
-            oparg = code[i] + code[i + 1] * 256
+            oparg = ord(code[i]) + ord(code[i + 1]) * 256
             i = i + 2
             print(repr(oparg).rjust(5), end=' ')
             if op in hasconst:
