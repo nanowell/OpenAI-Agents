@@ -1,6 +1,3 @@
-# Check if the user has the access to the file or directory
-
-
 import os
 import sys
 import stat
@@ -26,22 +23,8 @@ def main():
     else:
         print("{} is a special file".format(path))
 
-    if os.access(path, os.R_OK):
-        print("{} is readable".format(path))
-    else:
-        print("{} is not readable".format(path))
-
-    if os.access(path, os.W_OK):
-        print("{} is writable".format(path))
-    else:
-        print("{} is not writable".format(path))
-
-    if os.access(path, os.X_OK):
-        print("{} is executable".format(path))
-    else:
-        print("{} is not executable".format(path))
-
-
-if __name__ == "__main__":
-    main()
-
+    for access in [os.R_OK, os.W_OK, os.X_OK]:
+        if os.access(path, access):
+            print("{} is {}able".format(path, {os.R_OK: "read", os.W_OK: "write", os.X_OK: "execut"}[access]))
+        else:
+            print("{} is not {}able".format(path, {os.R_OK: "read", os.W_OK: "write", os.X_OK: "execut"}[access]))
