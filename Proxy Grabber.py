@@ -72,15 +72,16 @@ class ProxyGrabber:
         print("\n  Socks 5 Proxy Grabber")
         print("  ======================\n")
 
-           url = "https://www.socks-proxy.net/"
+        url = "https://www.socks-proxy.net/"
 
-    data = urlopen(url).read().decode("utf-8")
-    matches = re.findall(r"<tr><td>(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})</td><td>(\d+?)</td>", data)
+        data = urlopen(url).read().decode("utf-8")
+        matches = re.findall(r"<tr><td>(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})</td><td>(\d+?)</td>", data)
 
-    for match in matches:
-        ip = match[0]
-        port = match[1]
-        self.append_proxy(ip, port, "Socks5", "socks5")
+        for match in matches:
+            ip = match[0]1
+            
+            port = match[1]
+            self.append_proxy(ip, port, "Socks5", "socks5")
 
 def get_proxy(self, url: str, type: str):
     """Extract IP and port from website and append to proxy list"""
