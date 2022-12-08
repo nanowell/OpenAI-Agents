@@ -1,60 +1,31 @@
-# a python function that accepts a reddit permalink and returns the comments
-
-
-import praw
-import pprint
-import argparse
-
+import requests
 
 def get_comments(permalink):
-    """
-    get_comments(permalink)
+    # Replace the `YOUR_CLIENT_ID` and `YOUR_CLIENT_SECRET` placeholders with your own Reddit app's 
+    # client ID and client secret, respectively.
+    client_id = "YOUR_CLIENT_ID"
+    client_secret = "YOUR_CLIENT_SECRET"
 
-    :param permalink: a reddit permalink to a thread
-    :returns: a list of comments in the thread, each comment is a dict with keys 'body', 'author', 'created'
-    """
-    # create a praw instance
-    r = praw.Reddit(user_agent='reddit-comment-downloader')
+    # Check if the permalink is valid
+    if not permalink or not permalink.startswith("r/"):
+        return None
 
-    # get the submission object
-    submission = r.get_submission(permalink=permalink)
+    # Construct the Reddit API URL using the permalink
+    url = "https://api.reddit.com/{}/comments".format(permalink)
 
-    # get the comments from the submission object
-    submission.replace_more_comments(limit=None, threshold=0)
-    flat_comments = praw.helpers.flatten_tree(submission.comments)
+    # Make a request to the Reddit API to get the comments
+    response = requests.get(url, auth=(client_id, client_secret))
 
-    # convert the comments into a list of dicts
-    comments = []
-    for comment in flat_comments:
-        if isinstance(comment, praw.objects.MoreComments):
-            continue
-        comment_dict = {'body': comment.body, 'author': comment.author.name, 'created': comment.created}
-        comments.append(comment_dict)
+    # If the request is successful, return the list of comments
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
 
-    return comments
-
-
-def main():
-    """
-    main()
-
-    :returns: None
-    """
-    # create an argument parser
-    parser = argparse.ArgumentParser(description='A command line tool to download comments from reddit')
-
-    # add the permalink argument
-    parser.add_argument('permalink', help='the permalink of the thread to download comments from')
-
-    # parse the arguments
-    args = parser.parse_args()
-
-    # get the comments
-    comments = get_comments(args.permalink)
-
-    # print the comments
-    pprint.pprint(comments)
-
-
-if __name__ == '__main__':
-    main()
+# Example usage
+comments = get_comments("r/funny/comments/5z5v7y/hilarious_dog_gif/")
+if comments:
+    for comment in comments:
+        print(comment["body"])
+else:
+    print("Invalid permalink or error getting comments.")
