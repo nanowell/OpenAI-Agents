@@ -2,7 +2,18 @@ import { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 
 interface WeatherData {
-  // Add the interface for the weather data here
+  name: string;
+  sys: {
+    country: string;
+  };
+  weather: {
+    main: string;
+    description: string;
+  }[];
+  main: {
+    temp: number;
+    humidity: number;
+  };
 }
 
 const WeatherApp = () => {
@@ -14,7 +25,7 @@ const WeatherApp = () => {
     const fetchWeatherData = async () => {
       try {
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=YOUR_API_KEY`
         );
         setWeatherData(response.data);
       } catch (err) {
