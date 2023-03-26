@@ -7,25 +7,49 @@ def get_comments(permalink):
     client_secret = "YOUR_CLIENT_SECRET"
 
     # Check if the permalink is valid
-    if not permalink or not permalink.startswith("r/"):
+    if not permalink or not permalink.startswith("https://www.reddit.com/"):
         return None
 
-    # Construct the Reddit API URL using the permalink
-    url = "https://api.reddit.com/{}/comments".format(permalink)
+    # Extract the post ID and comment ID from the permalink
+    permalink_parts = permalink.split("/")
+    post_id = permalink_parts[6]
+    comment_id = permalink_parts[8]
+
+    # Construct the Reddit API URL using the post ID and comment ID
+    url = f"https://api.reddit.com/r/funny/comments/{post_id}/_/{comment_id}"
 
     # Make a request to the Reddit API to get the comments
-    response = requests.get(url, auth=(client_id, client_secret))
+    response = requests.get(url, auth=(client_id, client_secret), headers={"User-agent": "Mozilla/5.0"})
 
     # If the request is successful, return the list of comments
     if response.status_code == 200:
-        return response.json()
+        comments = response.json()[1]["data"]["children"]
+        return [flatten_comment(comment) for comment in comments]
     else:
         return None
 
-# Example usage
-comments = get_comments("r/funny/comments/5z5v7y/hilarious_dog_gif/")
-if comments:
-    for comment in comments:
-        print(comment["body"])
-else:
-    print("Invalid permalink or error getting comments.")
+def flatten_comment(comment):
+    comment_data = comment["data"]
+    flattened_comment = {"author": comment_data["author"],
+                         "body": comment_data["body"],
+                         "created_date": comment_data["created_utc"],
+                         "replies": []}
+    if "replies" in comment_data:
+        replies = comment_data["replies"]["data"]["children"]
+        flattened_comment["replies"] = [flatten_comment(reply) for reply in replies]
+    return flattened_comment
+
+if __name__ == "__main__":
+    # prompt the user to enter a Reddit permalink
+    permalink = input("Enter a Reddit permalink: ")
+
+    # call the get_comments function to get the comments for the given permalink
+    comments = get_comments(permalink)
+
+    if comments:
+        # flatten the comments and print them out
+        flattened_comments = [flatten_comments(comment) for comment in comments]
+        for comment in flattened_comments:
+            print(comment)
+    else:
+        print("Invalid permalink or unable to retrieve comments.")
