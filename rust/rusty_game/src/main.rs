@@ -22,20 +22,27 @@ fn main() {
     let mut direction = 0;
     let mut infected = 0;
     for _ in 0..10000000 {
+        // For each step of the burst
+
+        // Get the current state of the node at the current location.
         let current = *map.entry((x, y)).or_insert('.');
         match current {
+            // If it is clean, we turn left, infect the node, and move forward one node.
             '.' => {
                 direction = (direction + 3) % 4;
                 map.insert((x, y), 'W');
             }
+            // If it is weakened, we don't turn, we infect the node, and move forward one node.
             'W' => {
                 map.insert((x, y), '#');
                 infected += 1;
             }
+            // If it is infected, we turn right, we flag the node, and move forward one node.
             '#' => {
                 direction = (direction + 1) % 4;
                 map.insert((x, y), 'F');
             }
+            // If it is flagged, we turn around, clean the node, and move forward one node.
             'F' => {
                 direction = (direction + 2) % 4;
                 map.insert((x, y), '.');
@@ -43,6 +50,7 @@ fn main() {
             _ => panic!("Unexpected char: {}", current),
         }
 
+        // Move the virus one node in the direction it is facing.
         match direction {
             0 => y = y.saturating_sub(1),
             1 => x = x.saturating_add(1),
@@ -63,4 +71,3 @@ fn main() {
 
     println!("Infected: {}", infected);
 }
-
