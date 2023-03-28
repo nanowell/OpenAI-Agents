@@ -1,6 +1,12 @@
 # OpenAI-Codex-Code-Generation
-Fully coded Apps by Codex.
+Fully coded Apps by AI
 
-How I use Codex in VSCode to generate multiple completions with autosorting by highest "mean probe" value (logprobs)
+## How AI Generates Code
 
-https://user-images.githubusercontent.com/46109023/131386082-e1629ff6-5ffb-4e8e-be9d-3a4439300cee.mp4
+1. GPT-4 generates an idea.
+2. The idea is broken down into a step-by-step approach.
+3. Copilot X processes the step-by-step approach and writes code based on it.
+4. Copilot X tests the code to ensure it functions properly.
+5. If the code executes successfully, it's uploaded for use.
+
+This process may seem complex, but it's essential for turning ideas into reality. If you're interested in learning more, feel free to ask questions.
