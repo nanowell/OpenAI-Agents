@@ -9,4 +9,4 @@ Fully coded Apps by AI
 4. Copilot X tests the code to ensure it functions properly.
 5. If the code executes successfully, it's uploaded for use.
 
-This process may seem complex, but it's essential for turning ideas into reality. If you're interested in learning more, feel free to ask questions.
+If you're interested in learning more, feel free to ask questions.
