@@ -1,5 +1,19 @@
 use std::collections::HashMap;
 
+fn print_grid(map: &HashMap<(i32, i32), char>) {
+    let max_x = map.keys().map(|k| k.0).max().unwrap_or(0);
+    let max_y = map.keys().map(|k| k.1).max().unwrap_or(0);
+
+    for y in 0..=max_y {
+        for x in 0..=max_x {
+            let c = *map.get(&(x, y)).unwrap_or(&'.');
+            print!("{}", c);
+        }
+        println!("");
+    }
+    println!("");
+}
+
 fn main() {
     let mut map = HashMap::new();
     for (y, line) in vec![
@@ -13,7 +27,7 @@ fn main() {
         ".##.####",
     ].into_iter().enumerate() {
         for (x, c) in line.chars().enumerate() {
-            map.insert((x, y), c);
+            map.insert((x as i32, y as i32), c);
         }
     }
 
@@ -21,52 +35,31 @@ fn main() {
     let mut y = 0;
     let mut direction = 0;
     let mut infected = 0;
-    for _ in 0..10000000 {
-        // For each step of the burst
 
-        // Get the current state of the node at the current location.
+    let mut actions = HashMap::new();
+    actions.insert('.', (3, 'W'));
+    actions.insert('W', (0, '#'));
+    actions.insert('#', (1, 'F'));
+    actions.insert('F', (2, '.'));
+
+    for _ in 0..10000000 {
         let current = *map.entry((x, y)).or_insert('.');
-        match current {
-            // If it is clean, we turn left, infect the node, and move forward one node.
-            '.' => {
-                direction = (direction + 3) % 4;
-                map.insert((x, y), 'W');
-            }
-            // If it is weakened, we don't turn, we infect the node, and move forward one node.
-            'W' => {
-                map.insert((x, y), '#');
-                infected += 1;
-            }
-            // If it is infected, we turn right, we flag the node, and move forward one node.
-            '#' => {
-                direction = (direction + 1) % 4;
-                map.insert((x, y), 'F');
-            }
-            // If it is flagged, we turn around, clean the node, and move forward one node.
-            'F' => {
-                direction = (direction + 2) % 4;
-                map.insert((x, y), '.');
-            }
-            _ => panic!("Unexpected char: {}", current),
+        let (turn, new_state) = actions.get(&current).unwrap();
+        direction = (direction + turn) % 4;
+        map.insert((x, y), *new_state);
+        if *new_state == '#' {
+            infected += 1;
         }
 
-        // Move the virus one node in the direction it is facing.
         match direction {
-            0 => y = y.saturating_sub(1),
-            1 => x = x.saturating_add(1),
-            2 => y = y.saturating_add(1),
-            3 => x = x.saturating_sub(1),
+            0 => y -= 1,
+            1 => x += 1,
+            2 => y += 1,
+            3 => x -= 1,
             _ => panic!("Unexpected direction: {}", direction),
         }
-        print!("\x1Bc");
-        for y in 0..map.keys().map(|k| k.1).max().unwrap() + 1 {
-            for x in 0..map.keys().map(|k| k.0).max().unwrap() + 1 {
-                let c = *map.entry((x, y)).or_insert('.');
-                print!("{}", c);
-            }
-            println!("");
-        }
-        std::thread::sleep(std::time::Duration::from_millis(100));
+
+        print_grid(&map);
     }
 
     println!("Infected: {}", infected);
