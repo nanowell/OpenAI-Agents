@@ -1,17 +1,30 @@
 #pragma once
 
-#include <iostream>
 #include <Windows.h>
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <string>
 #include <TlHelp32.h>
 
-// Function prototypes
-DWORD GetProcId(const wchar_t* procName);
-uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName);
-uintptr_t FindDynamicAddress(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets);
+constexpr int KEY_F6 = 0x75;
+constexpr int KEY_F7 = 0x76;
 
-// Struct for storing signature data
-struct SignatureData {
-    const char* pattern;
-    const char* mask;
-    int additionalOffset;
+class TriggerBot {
+public:
+    TriggerBot();
+    ~TriggerBot();
+    void start();
+    void stop();
+    bool isRunning() const;
+    bool attachToProcess(const std::string& processName);
+
+private:
+    void run();
+    bool checkKeyState(int key) const;
+    DWORD getProcId(const std::string& processName) const;
+
+    bool m_running;
+    std::thread m_thread;
+    HANDLE m_processHandle;
 };
