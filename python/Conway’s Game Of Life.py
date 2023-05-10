@@ -4,6 +4,15 @@ import copy
 import logging
 import numpy as np
 import pygame
+import colorsys
+
+def get_color(num_neighbors):
+    hue = num_neighbors / 8.0  # There are 8 possible neighbors, so we normalize the value to [0, 1]
+    lightness = 0.5
+    saturation = 0.7
+    return tuple(round(c * 255) for c in colorsys.hls_to_rgb(hue, lightness, saturation))
+
+
 
 WIDTH = 60
 HEIGHT = 40
@@ -24,7 +33,10 @@ while True:
             for x in range(WIDTH):
                 for y in range(HEIGHT):
                     if currentCells[x, y] == '#':
-                        pygame.draw.rect(screen, (255, 255, 255), (x * 10, y * 10, 10, 10))
+                        num_neighbors = np.sum(currentCells[(x - 1) % WIDTH:(x + 1) % WIDTH + 1, (y - 1) % HEIGHT:(y + 1) % HEIGHT + 1] == '#') - int(currentCells[x, y] == '#')
+                        color = get_color(num_neighbors)
+                        pygame.draw.rect(screen, color, (x * 10, y * 10, 10, 10))
+
 
         draw_game_state(screen, currentCells)
 
