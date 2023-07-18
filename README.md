@@ -8,4 +8,4 @@ The OpenAI-Codex-Code-Generation repository features a multitude of applications
 4. **Testing**: Copilot X then meticulously tests the code to ensure it functions as expected.
 5. **Upload**: If the code proves successful, it gets uploaded for users to access and use.
 
-Experience the future of code generation with our fully AI-powered apps!
+Feel free to ask any questions!
