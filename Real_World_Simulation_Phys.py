@@ -30,7 +30,7 @@ y_train = np.random.rand(100, 1) # Dummy training data
 layers = [32, 32, 32] # Example architecture
 model = neural_net(X_train, layers)
 model.compile(optimizer='adam', loss=physics_loss)
-model.fit(X_train, y_train, epochs=900)
+model.fit(X_train, y_train, epochs=500)
 
 # Load the data for prediction
 X_test = np.random.rand(50, 10) # Replace this with your actual test data
