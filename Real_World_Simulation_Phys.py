@@ -1,4 +1,4 @@
-#tains model on quantum gravity equations to predict everything (I think it won't)
+#trains model on quantum gravity equations to predict everything (I think it won't)
 import tensorflow as tf
 import numpy as np
 
