@@ -1,4 +1,3 @@
-#trains model on quantum gravity equations to predict everything (I think it won't)
 import tensorflow as tf
 import numpy as np
 
@@ -14,8 +13,15 @@ def neural_net(X, layers):
 # Physics loss 
 def physics_loss(y_true, y_pred):
     # Placeholder implementation
-    # You should replace this with your actual physics-based loss function
-    loss = tf.reduce_mean(tf.square(y_true - y_pred))
+    # This is a very simplified version of the Einstein field equations
+    # It assumes that the metric tensor g is a scalar and that the stress-energy tensor T is also a scalar
+    g = y_pred
+    T = y_true
+    lambda_ = 0.01 # Cosmological constant
+    # Simplified Einstein field equations
+    E = g + lambda_ - 8*np.pi*T 
+    # Loss is mean squared error
+    loss = tf.reduce_mean(tf.square(E))
     return loss
 
 # Train as before
@@ -24,7 +30,7 @@ y_train = np.random.rand(100, 1) # Dummy training data
 layers = [32, 32, 32] # Example architecture
 model = neural_net(X_train, layers)
 model.compile(optimizer='adam', loss=physics_loss)
-model.fit(X_train, y_train, epochs=500)
+model.fit(X_train, y_train, epochs=900)
 
 # Load the data for prediction
 X_test = np.random.rand(50, 10) # Replace this with your actual test data
