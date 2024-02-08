@@ -1,9 +1,9 @@
 ## Overview
-The  AGI-Papers repository features a multitude of applications/papers fully written by AI. It is a testament to the cutting-edge capabilities of AI in generating human-like text and understanding complex topics. The repository contains AI-generated papers and code on various subjects, including computer science, economics, and social sciences, among others.
+The  OpenAI-Agents repository features a multitude of applications/papers fully written by AI. It is a testament to the cutting-edge capabilities of AI in generating human-like text and understanding complex topics. The repository contains AI-generated papers and code on various subjects, including computer science, economics, and social sciences, among others.
 
 ## Purpose
 
-The primary purpose of the AGI-Papers repository lies in showcasing the potential of AGI in producing human-like text and comprehending intricate concepts. By providing a diverse set of AI-generated papers and code, the repository serves several key objectives:
+The primary purpose of the OpenAI-Agents repository lies in showcasing the potential of AGI in producing human-like text and comprehending intricate concepts. By providing a diverse set of AI-generated papers and code, the repository serves several key objectives:
 
 1. **Accelerating Research:** AI-generated papers can help researchers quickly grasp the essential aspects of a topic, allowing them to focus their efforts on advancing their own work rather than spending extensive time reading through numerous traditional papers. These generated documents serve as condensed, accessible summaries of existing knowledge, enabling researchers to build upon this foundation more efficiently.
 
@@ -15,7 +15,7 @@ The primary purpose of the AGI-Papers repository lies in showcasing the potentia
 
 ## Benefits
 
-The AGI-Papers repository offers several benefits for researchers, scholars, and the academic community at large:
+The OpenAI-Agents repository offers several benefits for researchers, scholars, and the academic community at large:
 
 ### Accelerating Research
 
@@ -35,7 +35,7 @@ Automated generation of literature reviews, reports, and other documentation tas
 
 ## Limitations
 
-Despite its benefits, the AGI-Papers repository also presents several limitations:
+Despite its benefits, the OpenAI-Agents repository also presents several limitations:
 
 ### Quality Control
 
